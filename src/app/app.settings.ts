@@ -13,9 +13,9 @@ export var REMOTE_SERVER = false;
 */
 
 // LOCAL TEST SERVER (For testing via App running on a device)
-export var SUPERLOGIN_SERVER = 'http://15811a3a.ngrok.io';
-export var COUCHDB_SERVER = 'http://10700c24.ngrok.io';
-export var COUCHDB_SERVER_URL = '10700c24.ngrok.io';
+export var SUPERLOGIN_SERVER = 'http://9637c8ca.ngrok.io';
+export var COUCHDB_SERVER = 'http://7c3b4c00.ngrok.io';
+export var COUCHDB_SERVER_URL = '7c3b4c00.ngrok.io';
 export var REMOTE_SERVER = false;
 
 // AWS TEST SERVER

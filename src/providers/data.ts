@@ -118,17 +118,13 @@ export class Data {
         var remoteProductDBName = paths.remoteProductDB;
       }
       else { // This needed for testing with ionic serve when there is not any localstorage
-
-        // "localUserDB":"a@a.com",
-        // "remoteUserDB":"http://TT5hv5tIQtmHkfUkwUqFTw:O7JA6S-nQQi4y7AjTX7oKQ@localhost:5984/vanilla$a(40)a(2e)com",
-        // "remoteProductDB":"http://TT5hv5tIQtmHkfUkwUqFTw:O7JA6S-nQQi4y7AjTX7oKQ@localhost:5984/product"
         localUserDBName = "a@a.com";
-        remoteUserDBName = "http://O-UBvaarR7KN0D5iiWaMhA:lPS9tFDMQoifjXDaERk88A@localhost:5984/vanilla$a(40)a(2e)com";
-        remoteProductDBName = "http://O-UBvaarR7KN0D5iiWaMhA:lPS9tFDMQoifjXDaERk88A@localhost:5984/product";
+        remoteUserDBName = "http://eTjZV_ZxQ6KUFHqLnX18Fg:NgeGjNyMSoKrHxDRuJ6eRQ@localhost:5984/vanilla$a(40)a(2e)com";
+        remoteProductDBName = "http://eTjZV_ZxQ6KUFHqLnX18Fg:NgeGjNyMSoKrHxDRuJ6eRQ@localhost:5984/product";
       }
 
 
-      // ------------
+      // ------------------------------------------------
       // [1] First connect to the shared product database
       //
       this._productDB = new PouchDB(localProductDBName);
@@ -150,6 +146,7 @@ export class Data {
 
       this._productDB.sync(this._remoteProductDB) //No options here -> One time sync
         .on('complete', (info) => {
+          this.events.publish('SYNC_FINISHED', true); // Let login etc. know we have synced the product data
           console.log('++++++ Data: init(): *productDB* first one time sync has completed about to do live syncing now');
           //this.events.publish('SYNC_FINISHED', true); // Let login etc. know we have synced the data
           return this._productDB.sync(this._remoteProductDB, options) //Continous sync with options
@@ -210,10 +207,9 @@ export class Data {
         continuous: true
       };
 
-      return this._userDB.sync(this._remoteUserDB) //No options here -> One time sync
+      this._userDB.sync(this._remoteUserDB) //No options here -> One time sync
         .on('complete', (info) => {
           console.log('++++++ Data: init(): *userDB* first one time sync has completed about to do live syncing now');
-          this.events.publish('SYNC_FINISHED', true); // Let login etc. know we have synced the data
           return this._userDB.sync(this._remoteUserDB, options) //Continous sync with options
             .on('complete', (info) => {
               console.log('***** DATA: init() *userDB* Complete: Handling syncing complete');

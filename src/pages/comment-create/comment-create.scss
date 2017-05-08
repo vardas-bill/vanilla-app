@@ -1,0 +1,59 @@
+page-comment-create {
+
+  .background {
+    background-color: $company-modal-background-color;
+  }
+
+  .image-wrapper {
+    text-align: center;
+    margin: 20px 0;
+
+    .image {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+
+      display: inline-block;
+
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .image-placeholder {
+      display: inline-block;
+
+      background-color: #eee;
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+
+      font-size: 12px;
+
+      ion-icon {
+        font-size: 44px;
+        margin-bottom: -10px;
+        margin-top: 10px;
+      }
+    }
+  }
+
+
+  .item-textarea {
+    //margin-right: 10px;
+    background-color: $company-modal-background-color;
+  }
+
+  textarea {
+    height: 40vh;
+    width: 100vw;
+  }
+  .comment {
+    background-color: white;//#f53d3d;
+    color: black;//white;
+    padding-left: 10px;
+    margin-top: 40px;
+    margin-left: 10px;
+    margin-right: 20px;
+  }
+}

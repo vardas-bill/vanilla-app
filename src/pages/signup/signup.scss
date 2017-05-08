@@ -1,0 +1,48 @@
+page-signup {
+  .title {
+    color: white;
+    font-size:30px;
+  }
+
+  .item-ios {
+    color: white;
+    background-color: transparent;
+  }
+  .item-md {
+    color: white;
+    background-color: transparent;
+  }
+
+  .register-button {
+    width: 100%;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .login-button-container {
+    position: absolute;
+    bottom: 20px;
+    padding-right: 10px;
+  }
+  .login-button {
+    background-color: transparent;
+    color: white;
+    width: auto;
+    font-weight: 200;
+    font-size: 14px;
+  }
+
+  .background {
+    background-image: url('../assets/img/register_background.jpg');
+    background-size: cover;
+    height:100%;
+  }
+
+  .error-box {
+    color: yellow;
+  }
+
+  .error-border {
+    color: yellow;
+  }
+}

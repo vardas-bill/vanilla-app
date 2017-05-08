@@ -1,0 +1,86 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Edit Item</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="cancel()">
+        <span color="primary" showWhen="ios">
+          CANCEL
+        </span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button class="delete-button" (click)="delete()">
+        <ion-icon name="trash"></ion-icon>
+      </button>
+      <button ion-button (click)="save()" [disabled]="!isReadyToSave" strong>
+        <span color="primary" showWhen="ios">
+          SAVE
+        </span>
+        <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form *ngIf="form" [formGroup]="form" (ngSubmit)="createItem()">
+    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)"/>
+    <div class="item-image-wrapper" (click)="getPicture()">
+      <div class="item-image-placeholder" *ngIf="!this.form.controls.itemPic.value">
+        <ion-icon name="add"></ion-icon>
+        <div>
+          {{ 'ITEM_CREATE_CHOOSE_IMAGE' | translate }}
+        </div>
+      </div>
+      <div class="item-image" [style.backgroundImage]="getItemImageStyle()" *ngIf="this.form.controls.itemPic.value"></div>
+    </div>
+    <ion-list>
+      <ion-item>
+        <ion-label stacked class="item-label">Type:</ion-label>
+        <ion-input type="text" placeholder="" formControlName="itemType"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="item-label">Title:</ion-label>
+        <ion-input type="text" placeholder="" formControlName="title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="item-label">Product ID (optional):</ion-label>
+        <ion-input type="text" placeholder="" formControlName="productID"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="item-label">Description:</ion-label>
+        <ion-textarea class="" placeholder="" formControlName="description"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="item-label">Size (optional):</ion-label>
+        <ion-input type="text" placeholder="" formControlName="size"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="item-label">Price £ (optional):</ion-label>
+        <ion-input type="text" placeholder="" formControlName="price"></ion-input>
+      </ion-item>
+      <!--
+      <ion-item>
+        <ion-label stacked class="item-label">Currency (optional):</ion-label>
+        <ion-input type="text" placeholder="" formControlName="currency"></ion-input>
+      </ion-item>
+      -->
+      <ion-item>
+        <ion-label stacked class="item-label">Promote:</ion-label>
+        <ion-toggle formControlName="promote"></ion-toggle>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="item-label">Special Offer:</ion-label>
+        <ion-toggle formControlName="specialOffer"></ion-toggle>
+      </ion-item>
+      <ion-item *ngIf="form.value.specialOffer">
+        <ion-label stacked class="item-label">Offer Description:</ion-label>
+        <ion-textarea placeholder="" formControlName="offerDescription"></ion-textarea>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>

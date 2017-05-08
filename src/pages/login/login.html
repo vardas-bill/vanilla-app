@@ -1,0 +1,63 @@
+<!--
+<ion-header class="transparent-header">
+
+  <ion-navbar class="transparent-header">
+
+    <ion-buttons start>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+
+    <ion-title>{{ 'LOGIN_TITLE' | translate }}</ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+-->
+<ion-content>
+  <div class="background">
+    <ion-row class="login-title">
+      <ion-col text-center>
+        LOGIN
+      </ion-col>
+    </ion-row>
+
+    <ion-spinner *ngIf="showLoadingSpinner" class="loading-spinner" name="crescent"></ion-spinner>
+
+    <form (submit)="login()">
+      <ion-list>
+
+        <!--
+        <ion-item>
+          <ion-label fixed>{{ 'EMAIL' | translate }}</ion-label>
+          <ion-input type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        </ion-item>
+        -->
+
+        <ion-item>
+          <ion-label [style.color]="labelColor" color="white" class="login-label" floating>EMAIL</ion-label>
+          <ion-input class="email-input" type="email" [(ngModel)]="account.email" name="email"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label [style.color]="labelColor" color="white" class="login-label" floating>PASSWORD</ion-label>
+          <ion-input class="email-input" type="password" [(ngModel)]="account.password" name="password"></ion-input>
+        </ion-item>
+
+
+        <div padding>
+          <button class="standard-button login-button">LOGIN</button>
+        </div>
+
+        <div padding class="register-button-container">
+          <button (click)="register()" class="register-button">REGISTER</button>
+          <button (click)="register()" class="forgot-password-button">FORGOT PASSWORD</button>
+        </div>
+
+      </ion-list>
+    </form>
+
+
+  </div>
+</ion-content>

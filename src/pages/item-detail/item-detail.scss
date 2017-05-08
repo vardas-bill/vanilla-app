@@ -1,0 +1,50 @@
+page-item-detail {
+  .item-profile {
+    width: 100%;
+    background-position: center center;
+    background-size: cover;
+    height: 250px;
+  }
+
+  .item-detail {
+    width: 100%;
+    background: white;
+    position: absolute;
+  }
+
+  .comments-container {
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-top-color: black;
+    margin-top:20px;
+    font-size: 12px;
+  }
+  .comment-count {
+    float: left;
+    color: blue;
+    margin-top: 20px;
+  }
+  .add-comment {
+    float: right;
+    margin-top: 16px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: black;
+    padding: 4px;
+    font-weight: 100;
+  }
+  .comment-author {
+    font-weight: 600;
+  }
+  .comment {
+    clear: both;
+    color: grey;
+    width: 100%;
+    border-bottom-style: solid;
+    border-bottom-width: 0.5px;
+    border-bottom-color: black;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    margin-top: 0px;
+  }
+}

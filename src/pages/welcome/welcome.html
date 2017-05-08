@@ -1,0 +1,32 @@
+<ion-content>
+  <div class="background">
+    <!--
+    <div class="splash-info">
+      <div class="splash-logo"></div>
+      <div class="splash-intro">
+        {{ 'WELCOME_INTRO' | translate }}
+      </div>
+    </div>
+-->
+    <ion-spinner *ngIf="showLoadingSpinner" class="loading-spinner" name="crescent"></ion-spinner>
+
+    <ion-slides pager>
+
+      <ion-slide class="slide-1" >
+        <h2></h2>
+      </ion-slide>
+
+      <ion-slide class="slide-2" >
+        <h2></h2>
+      </ion-slide>
+
+      <ion-slide class="slide-3" >
+        <h2></h2>
+      </ion-slide>
+
+    </ion-slides>
+
+    <button (click)="login()" class="login-button">LOGIN</button>
+    <button (click)="signup()" class="register-button">REGISTER</button>
+  </div>
+</ion-content>

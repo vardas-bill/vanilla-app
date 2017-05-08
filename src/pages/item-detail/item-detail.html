@@ -1,0 +1,39 @@
+<ion-header>
+
+  <ion-navbar>
+
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>{{ item.title }}</ion-title>
+
+    <ion-buttons end>
+
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + itemImage.media + ')'">
+  </div>
+
+  <div class="item-detail" padding>
+    <h2>{{item.title}}</h2>
+    <p>{{item.description}}</p>
+
+    <div class="comments-container">
+      <div class="comment-count" (click)="showComments()">COMMENTS [{{commentCount}}]  </div>
+      <div class="add-comment" (click)="addComment()">ADD COMMENT</div>
+    </div>
+
+    <div *ngIf="displayComments">
+      <div class="comment" *ngFor="let comment of comments; let i = index">
+        <span class="comment-author">{{comment.userID}}:</span><br /> {{comment.comment}}
+      </div>
+    </div>
+  </div>
+</ion-content>

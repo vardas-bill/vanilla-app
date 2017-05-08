@@ -1,0 +1,80 @@
+
+page-login {
+
+  // This stops text inputs on Android being obscurred by white box
+  .input-cover {
+    position: static;
+  }
+
+
+  // This makes the rule that Android puts under input fields be white
+  /* Workaround to hide android default validation colors */
+  ion-item.item-md.item-input.input-has-focus .item-inner,
+  ion-item.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+  ion-item.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+    border-bottom-color: #ffffff;
+    box-shadow: none;
+  }
+
+
+  //background: #ccc url('../assets/img/GLA_background.jpg') no-repeat 50% 50% /cover;
+
+  background-color: transparent;
+
+  .background {
+    background-image: url('../assets/img/login_background.jpg');
+    background-size: cover;
+    height: 100%;
+  }
+
+  .item-ios {
+    color: white;
+    background-color: transparent;
+  }
+
+  .item-md {
+    color: white;
+    background-color: transparent;
+  }
+
+  .login-button {
+    width: 100%;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .register-button-container {
+    position: static;
+    margin-left: -8px;
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .register-button {
+    float: left;
+    background-color: transparent;
+    color: white;
+    width: auto;
+    border-style: solid;
+    border-color: white;
+    border-right-width: 1px;
+    padding-right: 14px;
+    font-weight: 200;
+    font-size: 14px;
+  }
+
+  .forgot-password-button {
+    float: left;
+    background-color: transparent;
+    color: white;
+    width: 200px;
+    text-align: left;
+    border-style: solid;
+    padding-left: 10px;
+    font-weight: 200;
+    font-size: 14px;
+  }
+}
+
+

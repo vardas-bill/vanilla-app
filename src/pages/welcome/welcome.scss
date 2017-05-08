@@ -1,0 +1,75 @@
+page-welcome {
+
+  background-color: transparent;
+
+  .background {
+    background-image: url('../assets/img/welcome_background.jpg');
+    background-size: cover;
+    height: 100%;
+  }
+  .title {
+    color: white;
+    font-size:30px;
+  }
+  .item-ios {
+    color: white;
+    background-color: transparent;
+  }
+
+  .login-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 40px;
+    width: 50%;
+    font-size: 20px;
+    font-weight: 200;
+    background: transparent;
+    color:white;
+    border-color: white;
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-style: solid;
+    z-index: 100000;
+  }
+  .register-button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 40px;
+    width: 50%;
+    font-size: 20px;
+    font-weight: 200;
+    background: transparent;
+    color:white;
+    border-color: white;
+    border-top-width: 1px;
+    border-left-width: 0.5px;
+    border-style: solid;
+    z-index: 100000;
+  }
+
+  div.swiper-pagination {
+    padding-bottom: 60px;
+    .swiper-pagination-bullet {
+      background: white;//#FFF;
+      margin: 0 3px;
+    }
+  }
+
+  .slide-1 {
+    background-image: url('../assets/img/welcome_background.jpg');
+    background-size: cover;
+  }
+
+  .slide-2 {
+    background-image: none;
+    background-color: yellowgreen;
+    //background-size: cover;
+  }
+
+  .slide-3 {
+    background-image: url('../assets/img/welcome_background.jpg');
+    background-size: cover;
+  }
+}

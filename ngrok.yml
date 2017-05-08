@@ -1,0 +1,10 @@
+authtoken: qEswrGrFaMLP6YF9swNg_798pEmQXjSCN2JbrBN6zg
+json_resolver_url: ""
+dns_resolver_ips: []
+tunnels:
+  super:
+    proto: http
+    addr: 3000
+  couchdb:
+    proto: http
+    addr: 5984

@@ -117,6 +117,7 @@ export class Authentication {
       };
 
       console.log('Authentication: login(): credentials = ' + JSON.stringify(credentials));
+      console.log('Authentication: login(): SUPERLOGIN_SERVER = ' + SUPERLOGIN_SERVER);
 
       this.http.post(SUPERLOGIN_SERVER + '/auth/login', JSON.stringify(credentials), {headers: headers})
         .subscribe(res => {

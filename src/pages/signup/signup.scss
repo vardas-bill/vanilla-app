@@ -1,4 +1,18 @@
 page-signup {
+  // This stops text inputs on Android being obscurred by white box
+  .input-cover {
+    position: static;
+  }
+
+  // This makes the rule that Android puts under input fields be white
+  /* Workaround to hide android default validation colors */
+  ion-item.item-md.item-input.input-has-focus .item-inner,
+  ion-item.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+  ion-item.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+    border-bottom-color: #ffffff;
+    box-shadow: none;
+  }
+
   .title {
     color: white;
     font-size:30px;
@@ -20,9 +34,10 @@ page-signup {
     margin-right: auto;
   }
   .login-button-container {
-    position: absolute;
-    bottom: 20px;
-    padding-right: 10px;
+    position: static;
+    margin-left: -8px;
+    margin-top: 20px;
+    width: 100%;
   }
   .login-button {
     background-color: transparent;

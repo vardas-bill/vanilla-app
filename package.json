@@ -48,6 +48,12 @@
     "cordova-plugin-statusbar",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
+    "cordova-plugin-app-version",
+    "cordova-plugin-camera",
+    "cordova-plugin-compat",
+    "cordova-plugin-network-information",
+    "cordova-plugin-secure-storage",
+    "onesignal-cordova-plugin",
     "ionic-plugin-keyboard"
   ],
   "cordovaPlatforms": [

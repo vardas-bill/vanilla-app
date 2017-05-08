@@ -53,17 +53,17 @@
 
     <form (submit)="register()">
       <ion-item>
-        <ion-label color="white" class="login-label" floating>Email</ion-label>
+        <ion-label [style.color]="labelColor" color="white" class="login-label" floating>Email</ion-label>
         <ion-input class="email-input" type="email" value="" [(ngModel)]="account.email" name="email"></ion-input>
       </ion-item>
 
       <ion-item>
-        <ion-label color="white" class="login-label" floating>Username (6-13 alphanumeric characters)</ion-label>
+        <ion-label [style.color]="labelColor" color="white" class="login-label" floating>Username (6-13 alphanumeric characters)</ion-label>
         <ion-input class="email-input" type="text" value="" [(ngModel)]="account.username" name="username"></ion-input>
       </ion-item>
 
        <ion-item>
-        <ion-label color="white" class="login-label" floating>Password (6-13 characters)</ion-label>
+        <ion-label [style.color]="labelColor" color="white" class="login-label" floating>Password (6-13 characters)</ion-label>
         <ion-input class="email-input" type="password" value="" [(ngModel)]="account.password" name="password"></ion-input>
       </ion-item>
 
@@ -71,10 +71,11 @@
         <button type="submit" class="standard-button register-button">REGISTER</button>
       </div>
 
+      <div padding class="login-button-container">
+        <button (click)="login()" class="login-button">LOGIN</button>
+      </div>
+
     </form>
 
-    <div padding class="login-button-container">
-      <button (click)="login()" class="login-button">LOGIN</button>
-    </div>
   </div>
 </ion-content>

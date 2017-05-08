@@ -29,6 +29,7 @@ export class SignupPage {
 
 
   showLoadingSpinner : boolean = false;
+  labelColor: string = "white";
 
   constructor(public navCtrl: NavController,
               public authentication: Authentication,

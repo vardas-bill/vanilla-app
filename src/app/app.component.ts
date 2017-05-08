@@ -117,10 +117,10 @@ export class VanillaApp {
       if (this.platform.is('cordova'))
       {
         console.log('VanillaApp: Running on a Cordova device');
-/*
+
         //this.oneSignal.setLogLevel({logLevel: 6, visualLevel: 4});
-        // :TO DO: Add Android push ID for OneSignal
-        this.oneSignal.startInit('73205d7d-b2a8-40ad-9f62-5ad8234360f6', '');
+        // NOTE: To test this on Android we MUST build the APK file and install on an Android phone
+        this.oneSignal.startInit('73205d7d-b2a8-40ad-9f62-5ad8234360f6', '1090877567336');
 
         this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
 
@@ -133,7 +133,8 @@ export class VanillaApp {
         });
 
         this.oneSignal.endInit();
-*/
+
+
         // :TO DO: Use the version number in the menu
         // Can only run getVersionNumber on an actual device
         this.appVersion.getVersionNumber().then((result) => {

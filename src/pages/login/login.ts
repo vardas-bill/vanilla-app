@@ -8,6 +8,7 @@ import { SignupPage } from '../../pages/signup/signup';
 import { Authentication } from '../../providers/authentication';
 import { ConnectivityService } from '../../providers/connectivity-service';
 import { ListMasterPage } from "../list-master/list-master";
+import { HomePage } from '../home/home';
 
 import { APP_NAME, SKIP_SECURESTORAGE, ENCRYPT_DATA } from '../../app/app.settings';
 
@@ -98,7 +99,15 @@ export class LoginPage {
               this.events.unsubscribe('SYNC_FINISHED', null);
               this.showLoadingSpinner = false;
               console.log('***** LoginPage: login(): SYNC_FINISHED event');
-              this.navCtrl.setRoot(ListMasterPage);
+              if (finished) this.navCtrl.setRoot(HomePage);
+              else {
+                let toast = this.toastCtrl.create({
+                  message: 'There was a problem getting product details. Try again?',
+                  duration: 4000,
+                  position: 'top'
+                });
+                toast.present();
+              }
             });
           }
           else {

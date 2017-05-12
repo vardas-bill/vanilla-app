@@ -47,10 +47,11 @@ page-signup {
     font-size: 14px;
   }
 
-  .background {
+  .content-background {
     background-image: url('../assets/img/register_background.jpg');
     background-size: cover;
-    height:100%;
+    height: 105%;
+    margin-top:-20px;
   }
 
   .error-box {

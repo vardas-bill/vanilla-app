@@ -2,10 +2,12 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { AppVersion } from '@ionic-native/app-version';
+import { StatusBar } from '@ionic-native/status-bar';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { VanillaApp } from './app.component';
 
+import { HomePage } from '../pages/home/home';
 import { CardsPage } from '../pages/cards/cards';
 import { ContentPage } from '../pages/content/content';
 import { LoginPage } from '../pages/login/login';
@@ -60,7 +62,8 @@ let pages = [
   ItemEditPage,
   CommentCreatePage,
   SearchPage,
-  SwipePage
+  SwipePage,
+  HomePage
 ];
 
 export function declarations() {
@@ -80,6 +83,7 @@ export function providers() {
     ConnectivityService,
     LocalStorage,
     AppVersion,
+    StatusBar,
     OneSignal,
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

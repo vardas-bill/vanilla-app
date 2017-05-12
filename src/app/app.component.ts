@@ -1,9 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, Config, AlertController, Events } from 'ionic-angular';
-import { StatusBar, Splashscreen, SecureStorage } from 'ionic-native';
+import { Splashscreen, SecureStorage } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
 import { AppVersion } from '@ionic-native/app-version';
 
-import { FirstRunPage } from '../pages/pages';
+import { HomePage } from '../pages/home/home';
 import { CardsPage } from '../pages/cards/cards';
 import { ContentPage } from '../pages/content/content';
 import { LoginPage } from '../pages/login/login';
@@ -38,7 +39,7 @@ export class VanillaApp {
 
   pages: any[] = [
     //{ title: 'Tutorial', icon: 'add-circle', component: TutorialPage },
-    { title: 'WELCOME', icon: 'add-circle', component: WelcomePage },
+    { title: 'HOME', icon: 'add-circle', component: HomePage },
     { title: 'ABOUT US', icon: 'add-circle', component: ContentPage },
     { title: 'CARDS', icon: 'add-circle', component: CardsPage },
     /*
@@ -55,6 +56,7 @@ export class VanillaApp {
 
   constructor(public translate: TranslateService,
               public platform: Platform,
+              public statusBar: StatusBar,
               public dataService: Data,
               public authentication: Authentication,
               public localStorage: LocalStorage,
@@ -104,13 +106,8 @@ export class VanillaApp {
 
       console.log('VanillaApp: Platform ready!');
 
-      //StatusBar.overlaysWebView(false); // let status bar overlay webview
-      //StatusBar.backgroundColorByHexString('#fa1cff'); // set status bar to white
-      //StatusBar.styleDefault();
-      //StatusBar.backgroundColorByName('yellow');
-      //Splashscreen.hide();
-      StatusBar.styleDefault();
-      StatusBar.backgroundColorByName('yellow');
+      //this.statusBar.overlaysWebView(false); // let status bar overlay webview
+      //this.statusBar.backgroundColorByHexString('#fa1cff');
       Splashscreen.hide();
 
       // Are we running on a device or in the browser?

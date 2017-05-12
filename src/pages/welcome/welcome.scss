@@ -2,11 +2,13 @@ page-welcome {
 
   background-color: transparent;
 
-  .background {
+  .content-background {
     background-image: url('../assets/img/welcome_background.jpg');
     background-size: cover;
-    height: 100%;
+    height: 105%;
+    margin-top:-20px;
   }
+
   .title {
     color: white;
     font-size:30px;
@@ -17,7 +19,7 @@ page-welcome {
   }
 
   .login-button {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     height: 40px;
@@ -33,7 +35,7 @@ page-welcome {
     z-index: 100000;
   }
   .register-button {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     height: 40px;

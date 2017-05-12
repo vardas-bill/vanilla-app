@@ -41,7 +41,21 @@ export const ENCRYPT_DATA = false; // Says whether or not PouchDB/CouchDB data g
 
 export const APP_NAME = 'VanillaApp'; // This is the name of the local storage (amongst other things)
 
-export const SOCIAL_CARDS = true;
-export const BACKGROUND_IMAGE_CARDS = false;
+export let PRODUCT_CATEGORIES = 2; // 0 | 2 | 3 | 4 | 6
+export const PRODUCT_CATEGORY_NAMES = [
+  {'name':'Craft Beer', 'keyword':'beer'},
+  {'name':'Craft Cider','keyword':'cider'}];
+export const PRODUCT_CATEGORY1_SUBCATEGORIES = [];
+export const PRODUCT_CATEGORY2_SUBCATEGORIES = [];
+export const PRODUCT_CATEGORY3_SUBCATEGORIES = [];
+export const PRODUCT_CATEGORY4_SUBCATEGORIES = [];
+export const PRODUCT_CATEGORY5_SUBCATEGORIES = [];
+export const PRODUCT_CATEGORY6_SUBCATEGORIES = [];
+
+export const MAJOR_CATEGORY_BUTTON = [
+  {'name':'Craft Beer', 'keyword':'beer'},
+  {'name':'Craft Cider','keyword':'cider'}
+]
+
 
 

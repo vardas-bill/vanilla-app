@@ -3,7 +3,7 @@ import { NavController } from 'ionic-angular';
 
 import { Data } from '../../providers/providers';
 
-import { APP_NAME, SOCIAL_CARDS, BACKGROUND_IMAGE_CARDS } from '../../app/app.settings';
+import { APP_NAME } from '../../app/app.settings';
 
 import * as moment from 'moment';
 

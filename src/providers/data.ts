@@ -119,8 +119,8 @@ export class Data {
       }
       else { // This needed for testing with ionic serve when there is not any localstorage
         localUserDBName = "a@a.com";
-        remoteUserDBName = "http://eTjZV_ZxQ6KUFHqLnX18Fg:NgeGjNyMSoKrHxDRuJ6eRQ@localhost:5984/vanilla$a(40)a(2e)com";
-        remoteProductDBName = "http://eTjZV_ZxQ6KUFHqLnX18Fg:NgeGjNyMSoKrHxDRuJ6eRQ@localhost:5984/product";
+        remoteUserDBName = "http://zYXw--Q8QpmV33BudWDPtA:qX7TZ7dFRqS9IWCXHd3SDg@localhost:5984/vanilla$a(40)a(2e)com";
+        remoteProductDBName = "http://zYXw--Q8QpmV33BudWDPtA:qX7TZ7dFRqS9IWCXHd3SDg@localhost:5984/product";
       }
 
 
@@ -178,6 +178,7 @@ export class Data {
         .on('error', (err) => {
           console.log('***** DATA: init() *productDB* Error: First Sync: Handling syncing error');
           console.dir(err);
+          this.events.publish('SYNC_FINISHED', false); // Let login etc. know sync failed
         })
         .on('denied', (err) => {
           console.log('***** DATA: init() *productDB* Denied: First Sync: Handling syncing denied');

@@ -6,6 +6,7 @@ import { AppVersion } from '@ionic-native/app-version';
 import { LoginPage } from '../login/login';
 import { SignupPage } from '../signup/signup';
 import { ListMasterPage } from '../list-master/list-master';
+import { HomePage } from '../home/home';
 
 import { ConnectivityService } from '../../providers/connectivity-service';
 import { Data } from '../../providers/data';
@@ -29,6 +30,7 @@ export class WelcomePage {
   usersEmail:         string = '';
   usersPassword:      string = '';
   showLoadingSpinner: boolean = false;
+  showButtons:        boolean = false;
 
   constructor(public navCtrl: NavController,
               public events: Events,
@@ -40,6 +42,8 @@ export class WelcomePage {
               public authentication: Authentication,
               public appVersion: AppVersion,
               navParams: NavParams) {
+
+    this.showButtons = false;
 
     // Determine whether or not we can auto login the user using credentials saved in local storage
     this.getStarted();
@@ -103,7 +107,7 @@ export class WelcomePage {
               // Check if email has been set
               secureStorage.get('authentication')
                 .then((result) => {
-                  console.log('WelcomePage: getStarted(): SecureStorage get email returned authentication = ' + result);
+                  console.log('WelcomePage: getStarted(): SecureStorage get authentication returned authentication = ' + result);
                   let authentication = JSON.parse(result);
                   this.usersEmail = authentication.email;
                   this.usersPassword = authentication.password;
@@ -127,7 +131,7 @@ export class WelcomePage {
                            this.showLoadingSpinner = false;
                            this.events.unsubscribe('SYNC_FINISHED', null);
                            console.log('***** WelcomePage: inializeApp(): SYNC_FINISHED event');
-                           this.navCtrl.setRoot(ListMasterPage);
+                           this.navCtrl.setRoot(HomePage);
                          });
                     }
                     else {
@@ -165,24 +169,29 @@ export class WelcomePage {
                     // Initialise the database
                     this.dataService.init();//this.usersEmail, false);
 
-                    this.navCtrl.setRoot(ListMasterPage);
+                    this.navCtrl.setRoot(HomePage);
                   }
 
                 },
                 error => {
                   console.log('WelcomePage: getStarted(): get authentication returned error = ' + error);
+                  // Show the login/register buttons
+                  this.showButtons = true;
                 });
             },
             error =>  {
               // There were no saved settings so let user login or register
               console.log('WelcomePage: getStarted(): No authentication settings in local storage ');
+              // Show the login/register buttons
+              this.showButtons = true;
             });
       }
       else {
         // We are running in the browser so can't use the locally stored settings
         console.log('WelcomePage: getStared(): NOT running on Cordova device.');
+        // Show the login/register buttons
+        this.showButtons = true;
       }
-
     });
   }
 

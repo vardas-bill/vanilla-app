@@ -1,0 +1,25 @@
+<ion-content class="content-background">
+  <div class="background">
+    <div class="top-row-container">
+      <div (click)="goto(1)" class="top-category">
+        {{category1Text.name}}
+      </div>
+    </div>
+    <div class="middle-row-container">
+      <div (click)="goto(2)" class="left-category">
+        {{category2Text.name}}
+      </div>
+      <div (click)="goto(3)" class="middle-category">
+        {{category3Text.name}}
+      </div>
+      <div (click)="goto(4)" class="right-category">
+        {{category4Text.name}}
+      </div>
+    </div>
+    <div class="bottom-row-container">
+      <div (click)="goto(5)" class="bottom-category">
+        {{category5Text.name}}
+      </div>
+    </div>
+  </div>
+</ion-content>

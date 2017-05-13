@@ -119,8 +119,8 @@ export class Data {
       }
       else { // This needed for testing with ionic serve when there is not any localstorage
         localUserDBName = "a@a.com";
-        remoteUserDBName = "http://zYXw--Q8QpmV33BudWDPtA:qX7TZ7dFRqS9IWCXHd3SDg@localhost:5984/vanilla$a(40)a(2e)com";
-        remoteProductDBName = "http://zYXw--Q8QpmV33BudWDPtA:qX7TZ7dFRqS9IWCXHd3SDg@localhost:5984/product";
+        remoteUserDBName = "http://Q7U5_CV1TBWlvJz0v0IMrQ:JEqdWQgeQA-VoE8aI-QOBw@localhost:5984/vanilla$a(40)a(2e)com";
+        remoteProductDBName = "http://Q7U5_CV1TBWlvJz0v0IMrQ:JEqdWQgeQA-VoE8aI-QOBw@localhost:5984/product";
       }
 
 

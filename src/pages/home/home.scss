@@ -35,8 +35,9 @@ page-home {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: black;
-    color: red;
+    background-position: center;
+    background-size: 33vw;
+    background-repeat: no-repeat;
     font-weight: 600;
     word-spacing: 30000px;
     opacity: 0.6;
@@ -52,8 +53,9 @@ page-home {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: black;
-    color: white;
+    background-position: center;
+    background-size: 33vw;
+    background-repeat: no-repeat;
     font-weight: 600;
     word-spacing: 30000px;
     opacity: 0.6;
@@ -61,8 +63,8 @@ page-home {
 
   .middle-category {
     width: 34vw;
-    background-color: white;
-    color: black;
+    //background-color: white;
+    //color: black;
     opacity: 1.0
   }
 

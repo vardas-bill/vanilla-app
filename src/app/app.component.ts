@@ -181,6 +181,6 @@ export class VanillaApp {
 
 
   openPage(page) {
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page.component, {'keyword': 'ALL'});
   }
 }

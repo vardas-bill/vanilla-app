@@ -53,8 +53,11 @@ export const PRODUCT_CATEGORY5_SUBCATEGORIES = [];
 export const PRODUCT_CATEGORY6_SUBCATEGORIES = [];
 
 export const MAJOR_CATEGORY_BUTTON = [
-  {'name':'Craft Beer', 'keyword':'beer', 'background-color': 'black', 'text-color': 'white', 'image': ''},
-  {'name':'Craft Cider','keyword':'cider'}
+  {'name':'Craft Beer', 'keyword':'beer', 'backgroundColor': 'red', 'textColor': 'white', 'image': ''},
+  {'name':'Craft Lager', 'keyword':'lager', 'backgroundColor': 'green', 'textColor': 'white', 'image': ''},
+  {'name':'', 'keyword':'ALL', 'backgroundColor': 'black', 'textColor': 'black', 'image': '../assets/img/square_logo.png'},
+  {'name':'Craft water', 'keyword':'water', 'backgroundColor': 'blue', 'textColor': 'white', 'image': ''},
+  {'name':'Craft Whisky', 'keyword':'whisky', 'backgroundColor': 'purple', 'textColor': 'white', 'image': ''}
 ]
 
 

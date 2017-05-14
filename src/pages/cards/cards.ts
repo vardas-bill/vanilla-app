@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { Data } from '../../providers/providers';
 
@@ -19,47 +19,23 @@ import * as moment from 'moment';
 })
 export class CardsPage {
 
-  cardItems: any[];
-
   hasDataItems: boolean = false;
   dataItems: any[];
-  itemImage: any = [{"type":"PHOTO"}, {"type":"PHOTO"}];
+  itemImage: any = [];
+  itemComments: any = [];
+  itemCommentsCount: any = [];
+  keyword: string;
+  name: string;
 
 
   constructor(public navCtrl: NavController,
+              public navParams: NavParams,
               public dataService: Data) {
 
-    this.displayDataItems();
+    this.keyword = this.navParams.get('keyword');
+    this.name = this.navParams.get('name');
 
-    this.cardItems = [
-      {
-        user: {
-          avatar: 'assets/img/marty-avatar.png',
-          name: 'Marty McFly'
-        },
-        date: 'November 5, 1955',
-        image: 'assets/img/advance-card-bttf.png',
-        content: 'Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.',
-      },
-      {
-        user: {
-          avatar: 'assets/img/sarah-avatar.png.jpeg',
-          name: 'Sarah Connor'
-        },
-        date: 'May 12, 1984',
-        image: 'assets/img/advance-card-tmntr.jpg',
-        content: 'I face the unknown future, with a sense of hope. Because if a machine, a Terminator, can learn the value of human life, maybe we can too.'
-      },
-      {
-        user: {
-          avatar: 'assets/img/ian-avatar.png',
-          name: 'Dr. Ian Malcolm'
-        },
-        date: 'June 28, 1990',
-        image: 'assets/img/advance-card-jp.jpg',
-        content: 'Your scientists were so preoccupied with whether or not they could, that they didn\'t stop to think if they should.'
-      }
-    ];
+    this.displayDataItems();
 
   }
 
@@ -81,11 +57,25 @@ export class CardsPage {
 
         // Go through changing the edit date of each Plan from iso format to the format we want and add associated immages to array.
         for (let i = 0; i < numItems; i++) {
+          // Don't include this entry if it doesn't match the keyword
+          console.log('+++++ this.dataItems[i].itemType = ' + this.dataItems[i].itemType + ', this.keyword = ' + this.keyword
+            + ', this.dataItems[i].itemType.indexOf(this.keyword) = ' + this.dataItems[i].itemType.indexOf(this.keyword));
+          if (this.keyword != 'ALL' && this.keyword != '' && this.dataItems[i].itemType.indexOf(this.keyword) == -1) {
+            this.dataItems.splice(i,1);
+            i = i - 1;
+            numItems = numItems - 1;
+            continue;
+          }
+
           this.dataItems[i].updated = moment(this.dataItems[i].updated).format('MMM Do YYYY');
 
           // Initialise itemImage array entry in preparation for being filled by displayMedia
           this.itemImage.push({'type':'', 'media':''});
           this.displayMedia(i, this.dataItems[i].media[0]);
+
+          // Initialise itemComments array entry in preparation for being filled by displayMedia
+          this.itemComments.push({'type':'', 'media':''});
+          this.displayComments(i, this.dataItems[i]._id);
         }
       }
       else {
@@ -117,4 +107,25 @@ export class CardsPage {
     });
   }
 
+
+
+  displayComments(itemIndex, itemID)
+  // Gets the comments for the given item
+  {
+    console.log('ListMasterPage: displayComments(): Called with itemIndex = ' + itemIndex + ', and itemID = ' + itemID);
+
+    // Get every comment so it can be shown
+    this.dataService.getComments(itemID).then((comments)=>{
+      if (comments) {
+        console.log('CardsPage: displayComments(): number of comments found is = ' + comments.length);
+        this.itemCommentsCount[itemIndex] = comments.length;
+        // Put array of comments in most recent first order
+        this.itemComments[itemIndex] = comments.reverse();
+      }
+      else {
+        console.log('ItemDetailPage: getComments(): No comments found ');
+        this.itemCommentsCount[itemIndex] = 0;
+      }
+    });
+  }
 }

@@ -1,7 +1,19 @@
 page-cards {
-
+  .toolbar-ios {
+    background: transparent;
+  }
+  .menu-icon {
+    color: white;
+  }
+  .background {
+    background-color: #3F434C;
+    background-size: cover;
+    height: 105%;
+    margin-top:-20px;
+  }
   .page-title {
     text-transform: uppercase;
+    color: white;
   }
 
   .card-background-page {

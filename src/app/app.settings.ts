@@ -13,9 +13,9 @@ export var REMOTE_SERVER = false;
 */
 
 // LOCAL TEST SERVER (For testing via App running on a device)
-export var SUPERLOGIN_SERVER = 'http://9637c8ca.ngrok.io';
-export var COUCHDB_SERVER = 'http://7c3b4c00.ngrok.io';
-export var COUCHDB_SERVER_URL = '7c3b4c00.ngrok.io';
+export var SUPERLOGIN_SERVER = 'http://fa7c4ed1.ngrok.io';
+export var COUCHDB_SERVER = 'http://1966ece9.ngrok.io';
+export var COUCHDB_SERVER_URL = '1966ece9.ngrok.io';
 export var REMOTE_SERVER = false;
 
 // AWS TEST SERVER
@@ -41,10 +41,6 @@ export const ENCRYPT_DATA = false; // Says whether or not PouchDB/CouchDB data g
 
 export const APP_NAME = 'VanillaApp'; // This is the name of the local storage (amongst other things)
 
-export let PRODUCT_CATEGORIES = 2; // 0 | 2 | 3 | 4 | 6
-export const PRODUCT_CATEGORY_NAMES = [
-  {'name':'Craft Beer', 'keyword':'beer'},
-  {'name':'Craft Cider','keyword':'cider'}];
 export const PRODUCT_CATEGORY1_SUBCATEGORIES = [];
 export const PRODUCT_CATEGORY2_SUBCATEGORIES = [];
 export const PRODUCT_CATEGORY3_SUBCATEGORIES = [];

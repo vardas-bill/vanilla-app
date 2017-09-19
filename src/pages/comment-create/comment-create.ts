@@ -4,8 +4,8 @@ import { NavController, ViewController } from 'ionic-angular';
 
 import { Camera } from 'ionic-native';
 
-import { Data } from '../../providers/data';
-import { Media } from '../../providers/media';
+import { DataProvider } from '../../providers/data';
+import { MediaProvider } from '../../providers/media';
 
 @Component({
   selector: 'page-comment-create',
@@ -24,8 +24,8 @@ export class CommentCreatePage {
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
-              public dataService: Data,
-              public mediaService: Media,
+              public dataProvider: DataProvider,
+              public mediaProvider: MediaProvider,
               formBuilder: FormBuilder) {
 
     this.form = formBuilder.group({
@@ -50,12 +50,12 @@ export class CommentCreatePage {
   getPicture()
   {
     console.log('CommentCreatePage: getPicture()');
-    this.mediaService.takePhotograph()
+    this.mediaProvider.takePhotograph()
       .then((image)=>
       {
         this.commentImage 	= image.toString();
 
-        this.dataService.addAnnotation('PHOTO', '', this.commentImage).then((id)=>{
+        this.dataProvider.addAnnotation('PHOTO', '', this.commentImage).then((id)=>{
           console.log('CommentCreatePage: getPicture(): addAnnotation retrned ID = ' + id);
           if (!id) return;
 

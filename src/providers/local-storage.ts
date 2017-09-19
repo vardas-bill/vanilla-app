@@ -9,7 +9,7 @@ import { APP_NAME, SKIP_SECURESTORAGE, ENCRYPT_DATA } from '../app/app.settings'
  */
 
 @Injectable()
-export class LocalStorage {
+export class LocalStorageProvider {
 
   secureStorage: SecureStorage = new SecureStorage();
 

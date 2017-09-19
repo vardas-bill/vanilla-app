@@ -4,7 +4,7 @@ import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { CommentCreatePage } from '../comment-create/comment-create';
 
 //import { Items } from '../../providers/providers';
-import { Data } from '../../providers/providers';
+import { DataProvider } from '../../providers/providers';
 
 @Component({
   selector: 'page-item-detail',
@@ -20,7 +20,7 @@ export class ItemDetailPage {
 
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
-              public dataService: Data,
+              public dataProvider: DataProvider,
               navParams: NavParams) {
 
     this.item = navParams.get('item');
@@ -41,7 +41,7 @@ export class ItemDetailPage {
 
   getComments()
   {
-    this.dataService.getComments(this.item._id).then((comments)=>{
+    this.dataProvider.getComments(this.item._id).then((comments)=>{
       if (comments) {
         console.log('ItemDetailPage: getComments(): number of comments found is = ' + comments.length);
         this.commentCount = comments.length;
@@ -76,7 +76,7 @@ export class ItemDetailPage {
       console.log('ItemDetailPage: CommentCreatePage returned = ' + JSON.stringify(comment));
       if (comment) {
         // addComment(theComment, thePhotoID, theUserID, theItemID)
-        this.dataService.addComment(comment.comment, comment.photoID, 'Anonymous', this.item._id).then((id)=>{
+        this.dataProvider.addComment(comment.comment, comment.photoID, 'Anonymous', this.item._id).then((id)=>{
           this.getComments();
           this.displayComments = true;
         });

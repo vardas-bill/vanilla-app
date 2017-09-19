@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { ListMasterPage } from '../list-master/list-master';
+import { DataProvider } from '../../providers/data';
+
 import { CardsPage } from '../cards/cards';
 
 
 import {
   APP_NAME,
+  DO_LOGIN,
   MAJOR_CATEGORY_BUTTON,
   PRODUCT_CATEGORY1_SUBCATEGORIES,
   PRODUCT_CATEGORY2_SUBCATEGORIES,
@@ -15,13 +17,7 @@ import {
   PRODUCT_CATEGORY5_SUBCATEGORIES,
   PRODUCT_CATEGORY6_SUBCATEGORIES } from '../../app/app.settings';
 
-/**
- * Generated class for the Home page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-@IonicPage()
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -30,7 +26,9 @@ export class HomePage {
 
   majorCategoryButton: any = MAJOR_CATEGORY_BUTTON;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              public dataProvider: DataProvider) {
 
   }
 

@@ -1,13 +1,25 @@
 import { Injectable, OpaqueToken } from '@angular/core';
-import { Network, SecureStorage } from 'ionic-native';
-import { ToastController, AlertController, Events} from 'ionic-angular';
+import { Network } from 'ionic-native';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { Platform, ToastController, AlertController, Events} from 'ionic-angular';
+
 import 'rxjs/add/operator/map';
 import PouchDB from 'pouchdb';
+
 //import CryptoPouch from 'crypto-pouch';
-import { APP_NAME, COUCHDB_SERVER, COUCHDB_SERVER_URL, REMOTE_SERVER, SKIP_SECURESTORAGE, ENCRYPT_DATA } from '../app/app.settings';
-import * as moment from 'moment';
 import CryptoJS from 'crypto-js';
-//import forge from 'node-forge';
+
+import { DO_LOGIN,
+  APP_NAME,
+  PRODUCT_DB_NAME,
+  COUCHDB_SERVER,
+  COUCHDB_SERVER_URL,
+  REMOTE_SERVER,
+  SKIP_SECURESTORAGE,
+  ENCRYPT_DATA } from '../app/app.settings';
+
+import * as moment from 'moment';
+
 
 /*
  Provider for all database stuff
@@ -17,7 +29,7 @@ import CryptoJS from 'crypto-js';
  */
 
 @Injectable()
-export class Data {
+export class DataProvider {
 
   data:                       any;
   _userDB:                    any;
@@ -39,6 +51,8 @@ export class Data {
     'annotations'];
 
   constructor(public alertCtrl: AlertController,
+              public nativeStorage: NativeStorage,
+              public platform: Platform,
               public events: Events) {
 
   }
@@ -54,31 +68,25 @@ export class Data {
 
   getDBPaths()
   {
-    console.log('Data: getDBPaths(): called.');
-
-    let secureStorage: SecureStorage = new SecureStorage();
+    console.log('DataProvider: getDBPaths(): called.');
 
     return new Promise(resolve => {
-      secureStorage.create(APP_NAME)
-        .then(
-          () => {
-            secureStorage.get('dbPaths')
-              .then(
-                data => {
-                  console.log('Data: getDBPaths(): get from secure storage = ' + data);
-                  resolve(JSON.parse(data));
-                },
-                error => {
-                  console.log('Data: getDBPaths(): get from secure ERROR = ' + error);
-                  resolve(false);
-                }
-              );
-          },
-          error => {
-            console.log('Data: getDBPaths(): get from secureStorage.create ERROR = ' + error);
-            resolve(false);
-          }
-        );
+      if (this.platform.is('cordova')) {
+        this.nativeStorage.getItem('dbPaths')
+          .then(
+            data => {
+              console.log('Data: getDBPaths(): get from secure storage = ' + data);
+              resolve(JSON.parse(data));
+            },
+            error => {
+              console.log('Data: getDBPaths(): get from secure ERROR = ' + error);
+              resolve(false);
+            }
+          );
+      }
+      else {
+        resolve(false);
+      }
     });
   }
 
@@ -86,41 +94,33 @@ export class Data {
   init()//localDBName, remoteDBName)
   // Initialises the database - Called every time the App starts or the user logs in or registers
   {
-    if (ENCRYPT_DATA) {
-      // Get the encryption key from localStorage
-      // NOTE: This is done here because init() is called when local storage has been setup after login/register etc.
-      console.log('Data: init(): Getting encryption key from local storage');
-      let secureStorage: SecureStorage = new SecureStorage();
-      secureStorage.create(APP_NAME)
-        .then(() => {
-            secureStorage.get('password')
-              .then((result) => {
-                console.log('Data: init(): Got encryption key (password) from local storage = ' + result);
-                this.encryptKey = result;
-              });
-          },
-          error => {
-            // No PIN available! This shouldn't happen.
-            console.log('Data: init(): NO encryption key (password) in local storage');
-            this.encryptKey = '';
-          });
-    }
+    console.log('DataProvider: init() called');
 
     // Get the DB paths from local storage so we can open and sync to them
     return this.getDBPaths().then((paths:any)=>{
       console.log('Data: init(): getDBPaths returned = ' + JSON.stringify(paths));
 
-      var localProductDBName = 'product';
+      var localProductDBName = PRODUCT_DB_NAME;
 
       if (paths) {
         var localUserDBName = paths.localUserDB;
         var remoteUserDBName = paths.remoteUserDB;
         var remoteProductDBName = paths.remoteProductDB;
+
+        console.log('DataProvider: init(): getDBPaths gave = ' + JSON.stringify(paths));
       }
       else { // This needed for testing with ionic serve when there is not any localstorage
         localUserDBName = "a@a.com";
-        remoteUserDBName = "http://1H_24ErrRz-CaCksjGEGIg:j_zv6YOeRayO98ScRtjlvQ@localhost:5984/vanilla$a(40)a(2e)com";
-        remoteProductDBName = "http://1H_24ErrRz-CaCksjGEGIg:j_zv6YOeRayO98ScRtjlvQ@localhost:5984/product";
+        if (DO_LOGIN) {
+          remoteUserDBName = "http://SDAaphrRTlm7Fg0J9sFHhA:W7oft_IsTtaZmOZ04Q0Tdg@localhost:5984/vanilla$a(40)a(2e)com";
+          remoteProductDBName = "http://SDAaphrRTlm7Fg0J9sFHhA:W7oft_IsTtaZmOZ04Q0Tdg@localhost:5984/product";
+        }
+        else {
+          remoteUserDBName = null;
+          remoteProductDBName = "http://localhost:5984/product";
+        }
+        console.log('DataProvider: init(): getDBPaths returned false. Using paths remoteUserDBName = ' + remoteUserDBName + ', remoteProductDBName = ' + remoteProductDBName);
+
       }
 
 
@@ -130,6 +130,7 @@ export class Data {
       this._productDB = new PouchDB(localProductDBName);
 
       console.log('Data: init(): PouchDB database opened for localProductDBName = ' + localProductDBName);
+      console.log('Data: init(): this._productDB = ' + JSON.stringify(this._productDB));
 
       // Insert the url for the CouchDB server into the remoteProductDBName
       var realRemoteProductDB = remoteProductDBName.replace("localhost:5984", COUCHDB_SERVER_URL);
@@ -137,6 +138,8 @@ export class Data {
       console.log('Data: init(): real remoteProductDB path being used is: ' + realRemoteProductDB);
 
       this._remoteProductDB = new PouchDB(realRemoteProductDB);
+
+      console.log('Data: init(): this._remoteProductDB = ' + JSON.stringify(this._remoteProductDB));
 
       let options = {
         live: true,
@@ -176,12 +179,12 @@ export class Data {
             });
         })
         .on('error', (err) => {
-          console.log('***** DATA: init() *productDB* Error: First Sync: Handling syncing error');
+          console.log('ERROR ***** DATA: init() *productDB* Error: First Sync: Handling syncing error');
           console.dir(err);
           this.events.publish('SYNC_FINISHED', false); // Let login etc. know sync failed
         })
         .on('denied', (err) => {
-          console.log('***** DATA: init() *productDB* Denied: First Sync: Handling syncing denied');
+          console.log('DENIED ***** DATA: init() *productDB* Denied: First Sync: Handling syncing denied');
           console.dir(err);
         });
 
@@ -189,62 +192,65 @@ export class Data {
       // ------------
       // [2] Connect to the user's private database (for user settings, bookmarks, profile, etc.)
       //
-      this._userDB = new PouchDB(localUserDBName);
+      // Only do this if users have to login
+      if (DO_LOGIN) {
+        this._userDB = new PouchDB(localUserDBName);
 
-      console.log('Data: init(): PouchDB database opened for localDBName = ' + localUserDBName);
+        console.log('Data: init(): PouchDB database opened for localDBName = ' + localUserDBName);
 
-      if (!remoteUserDBName) return;  // Don't sync local DB with remote DB as there is no remote DB to sync with
+        if (!remoteUserDBName) return;  // Don't sync local DB with remote DB as there is no remote DB to sync with
 
-      // Insert the url for the CouchDB server into the remoteDBName
-      var realRemoteUserDB = remoteUserDBName.replace("localhost:5984", COUCHDB_SERVER_URL);
+        // Insert the url for the CouchDB server into the remoteDBName
+        var realRemoteUserDB = remoteUserDBName.replace("localhost:5984", COUCHDB_SERVER_URL);
 
-      console.log('Data: init(): realRemoteUserDB path being used is: ' + realRemoteUserDB);
+        console.log('Data: init(): realRemoteUserDB path being used is: ' + realRemoteUserDB);
 
-      this._remoteUserDB = new PouchDB(realRemoteUserDB);
+        this._remoteUserDB = new PouchDB(realRemoteUserDB);
 
-      options = {
-        live: true,
-        retry: true,
-        continuous: true
-      };
+        options = {
+          live: true,
+          retry: true,
+          continuous: true
+        };
 
-      this._userDB.sync(this._remoteUserDB) //No options here -> One time sync
-        .on('complete', (info) => {
-          console.log('++++++ Data: init(): *userDB* first one time sync has completed about to do live syncing now');
-          return this._userDB.sync(this._remoteUserDB, options) //Continous sync with options
-            .on('complete', (info) => {
-              console.log('***** DATA: init() *userDB* Complete: Handling syncing complete');
-              console.dir(info);
-            })
-            .on('change', (info) => {
-              console.log('***** DATA: init() *userDB* Change: Handling syncing change');
-              console.dir(info);
-            })
-            .on('paused', (info) => {
-              console.log('***** DATA: init() *userDB* Paused: Handling syncing pause');
-              console.dir(info);
-            })
-            .on('active', (info) => {
-              console.log('***** DATA: init() *userDB* Active: Handling syncing resumption');
-              console.dir(info);
-            })
-            .on('error', (err) => {
-              console.log('***** DATA: init() *userDB* Error: Handling syncing error');
-              console.dir(err);
-            })
-            .on('denied', (err) => {
-              console.log('***** DATA: init() *userDB* Denied: Handling syncing denied');
-              console.dir(err);
-            });
-        })
-        .on('error', (err) => {
-          console.log('***** DATA: init() *userDB* Error: First Sync: Handling syncing error');
-          console.dir(err);
-        })
-        .on('denied', (err) => {
-          console.log('***** DATA: init() *userDB* Denied: First Sync: Handling syncing denied');
-          console.dir(err);
-        });
+        this._userDB.sync(this._remoteUserDB) //No options here -> One time sync
+          .on('complete', (info) => {
+            console.log('++++++ Data: init(): *userDB* first one time sync has completed about to do live syncing now');
+            return this._userDB.sync(this._remoteUserDB, options) //Continous sync with options
+              .on('complete', (info) => {
+                console.log('***** DATA: init() *userDB* Complete: Handling syncing complete');
+                console.dir(info);
+              })
+              .on('change', (info) => {
+                console.log('***** DATA: init() *userDB* Change: Handling syncing change');
+                console.dir(info);
+              })
+              .on('paused', (info) => {
+                console.log('***** DATA: init() *userDB* Paused: Handling syncing pause');
+                console.dir(info);
+              })
+              .on('active', (info) => {
+                console.log('***** DATA: init() *userDB* Active: Handling syncing resumption');
+                console.dir(info);
+              })
+              .on('error', (err) => {
+                console.log('***** DATA: init() *userDB* Error: Handling syncing error');
+                console.dir(err);
+              })
+              .on('denied', (err) => {
+                console.log('***** DATA: init() *userDB* Denied: Handling syncing denied');
+                console.dir(err);
+              });
+          })
+          .on('error', (err) => {
+            console.log('***** DATA: init() *userDB* Error: First Sync: Handling syncing error');
+            console.dir(err);
+          })
+          .on('denied', (err) => {
+            console.log('***** DATA: init() *userDB* Denied: First Sync: Handling syncing denied');
+            console.dir(err);
+          });
+      }
     });
   }
 

@@ -1,17 +1,43 @@
-import { Injectable, OpaqueToken } from '@angular/core';
-import { ToastController, AlertController, Events} from 'ionic-angular';
-import { Network } from '@ionic-native/network';
+import { Injectable } from '@angular/core';
+import { AlertController} from 'ionic-angular';
+import { Platform } from 'ionic-angular';
+
+import { FB_LINK, TW_LINK } from '../app/app.settings';
+
+import moment from 'moment';
+
 
 /*
  Some common shared functions
  */
 @Injectable()
-export class CommonFunctions {
+export class CommonFunctionsProvider {
 
   constructor(public alertCtrl: AlertController,
-              public network: Network) {
+              public platform: Platform) {
 
   }
+
+  extractYearMonth(id:string):any
+  // Extracts the year/month data from a News item or Calendar item ID
+  {
+    let colon: number = id.indexOf(':');
+    let index: number = 0;
+    if (colon != -1) index = colon + 1;
+
+    let year = id.substring(0, id.indexOf('-'));
+    let monthID = id.substring(id.indexOf('-') + 1);
+    let monthName = moment(monthID, 'MM').format('MMMM');
+
+    return({
+      'year': year,
+      'monthID': monthID,
+      'monthName': monthName
+    });
+  }
+
+
+
 
   showAlertMessage(title, message)
   {
@@ -24,31 +50,16 @@ export class CommonFunctions {
   }
 
 
-  /* :TO DO: Implement the following for network monitoring...
-   // watch network for a disconnect
-   let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-   console.log('network was disconnected :-(');
-   });
-
-   // stop disconnect watch
-   disconnectSubscription.unsubscribe();
+  gotoFacebook()
+  {
+    window.open(FB_LINK, '_system', 'location=no');
+  }
 
 
-   // watch network for a connection
-   let connectSubscription = this.network.onConnect().subscribe(() => {
-   console.log('network connected!'); 
-   // We just got a connection but we need to wait briefly
-   // before we determine the connection type.  Might need to wait 
-   // prior to doing any api requests as well.
-   setTimeout(() => {
-   if (this.network.type === 'wifi') {
-   console.log('we got a wifi connection, woohoo!');
-   }
-   }, 3000);
-   });
 
-   // stop connect watch
-   connectSubscription.unsubscribe();
-   */
+  gotoTwitter()
+  {
+    window.open(TW_LINK, '_system', 'location=no');
+  }
 }
 

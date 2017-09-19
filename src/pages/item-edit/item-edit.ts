@@ -4,8 +4,8 @@ import { NavController, ViewController, NavParams, AlertController, ToastControl
 
 import { Camera } from 'ionic-native';
 
-import { Data } from '../../providers/data';
-import { Media } from '../../providers/media';
+import { DataProvider } from '../../providers/data';
+import { MediaProvider } from '../../providers/media';
 
 @Component({
   selector: 'page-item-edit',
@@ -25,8 +25,8 @@ export class ItemEditPage {
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
-              public dataService: Data,
-              public mediaService: Media,
+              public dataProvider: DataProvider,
+              public mediaProvider: MediaProvider,
               public navParams: NavParams,
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
@@ -47,7 +47,7 @@ export class ItemEditPage {
     });
 
     this.itemID = this.navParams.get('itemID');
-    this.dataService.getItem(this.itemID).then((result)=>{
+    this.dataProvider.getItem(this.itemID).then((result)=>{
       if (result) {
         console.log('ItemEditPage: Constructor: getItem returned result = ' + JSON.stringify(result));
 
@@ -57,7 +57,7 @@ export class ItemEditPage {
 
         this.annotationID = result.media[0];
         // Get the photo annotation
-        this.dataService.getAnnotation(this.annotationID).then((annotation)=>
+        this.dataProvider.getAnnotation(this.annotationID).then((annotation)=>
         {
           if (annotation) {
             this.itemImage = annotation[0].media;
@@ -115,12 +115,12 @@ export class ItemEditPage {
         {
           text: 'New Photo',
           handler: () => {
-            this.mediaService.takePhotograph()
+            this.mediaProvider.takePhotograph()
               .then((image)=>
               {
                 let itemImage 	= image.toString();
 
-                this.dataService.addAnnotation('PHOTO', '', itemImage).then((id)=>{
+                this.dataProvider.addAnnotation('PHOTO', '', itemImage).then((id)=>{
 
                   if (!id) return;
 
@@ -140,12 +140,12 @@ export class ItemEditPage {
         {
           text: 'Select Photo',
           handler: () => {
-            this.mediaService.selectPhotograph()
+            this.mediaProvider.selectPhotograph()
               .then((image)=>
               {
                 let itemImage 	= image.toString();
 
-                this.dataService.addAnnotation('PHOTO', '', itemImage).then((id)=>{
+                this.dataProvider.addAnnotation('PHOTO', '', itemImage).then((id)=>{
 
                   if (!id) return;
 
@@ -223,7 +223,7 @@ export class ItemEditPage {
     this.item.media = ((this.annotationID == '') ? [] : [this.annotationID]);
 
     // Update the item in the database
-    this.dataService.updateItem(this.item).then((result)=>{
+    this.dataProvider.updateItem(this.item).then((result)=>{
       this.viewCtrl.dismiss(this.form.value);
     });
 
@@ -247,8 +247,8 @@ export class ItemEditPage {
         {
           text: 'Yes',
           handler: () => {
-            this.dataService.getItem(this.itemID).then((item)=>{
-              if (item) this.dataService.removeItem(item._id,item._rev).then((result)=>{
+            this.dataProvider.getItem(this.itemID).then((item)=>{
+              if (item) this.dataProvider.removeItem(item._id,item._rev).then((result)=>{
                 this.viewCtrl.dismiss(false);
               });
             })

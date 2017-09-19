@@ -7,8 +7,9 @@ import { checkFirstCharacterValidator } from '../validators/custom-validators';
 
 import { MainPage } from '../../pages/pages';
 import { LoginPage } from '../../pages/login/login';
-import { Data } from '../../providers/data';
-import { Authentication } from '../../providers/authentication';
+
+import { DataProvider } from '../../providers/data';
+import { AuthenticationProvider } from '../../providers/authentication';
 import { ConnectivityService } from '../../providers/connectivity-service';
 
 import { APP_NAME, SKIP_SECURESTORAGE, ENCRYPT_DATA } from '../../app/app.settings';
@@ -32,8 +33,8 @@ export class SignupPage {
   labelColor: string = "white";
 
   constructor(public navCtrl: NavController,
-              public authentication: Authentication,
-              public dataService: Data,
+              public authenticationProvider: AuthenticationProvider,
+              public dataProvider: DataProvider,
               public toastCtrl: ToastController,
               public connectivityService: ConnectivityService,
               public translateService: TranslateService,
@@ -62,21 +63,21 @@ export class SignupPage {
       this.showLoadingSpinner = true;
 
       // Register the user
-      this.authentication.register(this.account.username, this.account.email, this.account.password).then((details: any) => {
+      this.authenticationProvider.register(this.account.username, this.account.email, this.account.password).then((details: any) => {
 
         // Successful registration so add stuff to SecureStorage and to user settings in DB
         console.log('SignupPage: register(): authentication.register returned = ' + JSON.stringify(details));
 
         if (details.success) {
           // Create the user settings in the database
-          this.dataService.createUserSettings().then(() => {
+          this.dataProvider.createUserSettings().then(() => {
             // Save the settings
-            this.dataService.getUserSettings().then((settings:any) => {
+            this.dataProvider.getUserSettings().then((settings:any) => {
               if (settings) {
                 settings.username = this.account.username;
                 settings.email = this.account.email;
                 settings.password = this.account.password;
-                this.dataService.updateUserSettings(settings).then((result:any) => {
+                this.dataProvider.updateUserSettings(settings).then((result:any) => {
                   if (!result) console.log('ERROR: SignupPage: register(): updateUserSettings() failed.');
                 });
               }

@@ -1,15 +1,20 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { Http } from '@angular/http';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { AppVersion } from '@ionic-native/app-version';
 import { StatusBar } from '@ionic-native/status-bar';
-import { BrowserModule } from '@angular/platform-browser';
+import { NativeStorage } from '@ionic-native/native-storage';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { CallNumber } from '@ionic-native/call-number';
 
 import { VanillaApp } from './app.component';
 
+import { TabsPage } from '../pages/tabs/tabs';
 import { HomePage } from '../pages/home/home';
 import { CardsPage } from '../pages/cards/cards';
-import { ContentPage } from '../pages/content/content';
+import { ContactPage } from '../pages/contact/contact';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
 import { SignupPage } from '../pages/signup/signup';
@@ -23,13 +28,12 @@ import { ItemDetailPage } from '../pages/item-detail/item-detail';
 import { SearchPage } from '../pages/search/search';
 import { SwipePage } from '../pages/swipe/swipe';
 
-import { Settings } from '../providers/settings';
-import { Authentication } from '../providers/authentication';
-import { Data } from '../providers/data';
-import { Media } from '../providers/media';
+//import { Settings } from '../providers/settings';
+import { AuthenticationProvider } from '../providers/authentication';
+import { DataProvider } from '../providers/data';
+import { MediaProvider } from '../providers/media';
 import { ConnectivityService } from '../providers/connectivity-service';
-import { LocalStorage } from '../providers/local-storage';
-import { Items } from '../mocks/providers/items';
+import { LocalStorageProvider } from '../providers/local-storage';
 
 import { OneSignal } from '@ionic-native/onesignal';
 
@@ -48,9 +52,10 @@ export function createTranslateLoader(http: Http) {
  * can find them. As you add and remove pages, make sure to keep this list up to date.
  */
 let pages = [
+  TabsPage,
   VanillaApp,
   CardsPage,
-  ContentPage,
+  ContactPage,
   LoginPage,
   MapPage,
   SignupPage,
@@ -76,14 +81,16 @@ export function entryComponents() {
 
 export function providers() {
   return [
-    Authentication,
-    Data,
-    Media,
-    Items,
+    AuthenticationProvider,
+    DataProvider,
+    MediaProvider,
     ConnectivityService,
-    LocalStorage,
+    LocalStorageProvider,
     AppVersion,
     StatusBar,
+    SplashScreen,
+    NativeStorage,
+    CallNumber,
     OneSignal,
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

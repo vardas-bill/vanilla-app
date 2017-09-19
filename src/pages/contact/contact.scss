@@ -1,0 +1,76 @@
+.ios, .md {
+  page-contact {
+    .heading {
+      font-size: 18px;
+      font-weight: 600;
+      padding-left: 14px;
+      padding-top: 14px;
+    }
+    .sub-heading {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 10px 10px 0px 40px;
+    }
+    .text  {
+      padding: 0px 0px 0px 40px;
+    }
+    .contacts-heading {
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      padding-left: 14px;
+    }
+    .address-box {
+      padding: 0px 10px 0px 14px;
+      font-size: 14px;
+    }
+    .phonenumbers {
+      margin-top: 8px;
+    }
+    .contacts-box {
+      //padding: 10px 10px 10px 24px;
+      //padding-left: 16px;
+      font-size: 12px;
+      background-color: $ehs-very-light-gray;
+      //padding-bottom: 10px;
+    }
+    .contact-first-item {
+      margin-left: -16px;
+      margin-top: 10px;
+    }
+    .contact-item {
+      border-style: solid;
+      border-width: 0px;
+      border-top-width: 1px;
+      min-width: 110vw !important;
+      margin-left: -16px;
+      margin-top: 10px;
+    }
+    .contact-last-item {
+      border-style: solid;
+      border-width: 0px;
+      border-top-width: 1px;
+      min-width: 110vw !important;
+      margin-left: -16px;
+      margin-top: 10px;
+      padding-bottom: 10px;
+    }
+    .rule {
+      border-style: solid;
+      border-width: 0px;
+      border-top-width: 1px;
+      min-width: 110vw !important;
+      margin-left: -16px;
+      margin-top: 10px;
+      //margin-bottom: -10px;
+    }
+    .mailto {
+      font-weight: 600;
+    }
+    .app-version {
+      margin-top: 60px;
+      padding-left: 14px;
+    }
+  }
+}

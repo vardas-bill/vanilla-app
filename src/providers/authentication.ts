@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { SUPERLOGIN_SERVER, APP_NAME, REMOTE_SERVER, SKIP_SECURESTORAGE } from '../app/app.settings';
 import { SecureStorage } from 'ionic-native';
 
-import { Data } from './data';
+import { DataProvider } from './data';
 
 /*
  Provider for all login/signup and related account details
@@ -13,10 +13,10 @@ import { Data } from './data';
 */
 
 @Injectable()
-export class Authentication {
+export class AuthenticationProvider {
 
   constructor(public http: Http,
-              public dataService: Data)
+              public dataService: DataProvider)
   {
     console.log('Hello Authentication Provider');
   }

@@ -4,8 +4,8 @@ import { NavController, ViewController, NavParams, AlertController } from 'ionic
 
 import { Camera } from 'ionic-native';
 
-import { Data } from '../../providers/data';
-import { Media } from '../../providers/media';
+import { DataProvider } from '../../providers/data';
+import { MediaProvider } from '../../providers/media';
 
 @Component({
   selector: 'page-item-create',
@@ -23,8 +23,8 @@ export class ItemCreatePage {
 
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
-              public dataService: Data,
-              public mediaService: Media,
+              public dataProvider: DataProvider,
+              public mediaProvider: MediaProvider,
               public navParams: NavParams,
               public alertCtrl: AlertController,
               formBuilder: FormBuilder) {
@@ -75,12 +75,12 @@ export class ItemCreatePage {
         {
           text: 'New Photo',
           handler: () => {
-            this.mediaService.takePhotograph()
+            this.mediaProvider.takePhotograph()
               .then((image)=>
               {
                 let itemImage 	= image.toString();
 
-                this.dataService.addAnnotation('PHOTO', '', itemImage).then((id)=>{
+                this.dataProvider.addAnnotation('PHOTO', '', itemImage).then((id)=>{
 
                   if (!id) return;
 
@@ -97,12 +97,12 @@ export class ItemCreatePage {
         {
           text: 'Select Photo',
           handler: () => {
-            this.mediaService.selectPhotograph()
+            this.mediaProvider.selectPhotograph()
               .then((image)=>
               {
                 let itemImage 	= image.toString();
 
-                this.dataService.addAnnotation('PHOTO', '', itemImage).then((id)=>{
+                this.dataProvider.addAnnotation('PHOTO', '', itemImage).then((id)=>{
 
                   if (!id) return;
 
@@ -181,7 +181,7 @@ export class ItemCreatePage {
     data.media = ((this.annotationID == '') ? [] : [this.annotationID]);
 
     // Add item to the database
-    this.dataService.addItem(data).then((result)=>{
+    this.dataProvider.addItem(data).then((result)=>{
       this.viewCtrl.dismiss(this.form.value);
     });
 

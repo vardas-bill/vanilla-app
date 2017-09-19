@@ -5,18 +5,20 @@
 
 
 // LOCAL TEST SERVER (For testing via browser)
-/*
+
 export var SUPERLOGIN_SERVER = 'http://127.0.0.1:3000';
 export var COUCHDB_SERVER = 'http://127.0.0.1:5984';
 export var COUCHDB_SERVER_URL = '127.0.0.1:5984';
 export var REMOTE_SERVER = false;
-*/
+
 
 // LOCAL TEST SERVER (For testing via App running on a device)
+/*
 export var SUPERLOGIN_SERVER = 'http://fa7c4ed1.ngrok.io';
 export var COUCHDB_SERVER = 'http://1966ece9.ngrok.io';
 export var COUCHDB_SERVER_URL = '1966ece9.ngrok.io';
 export var REMOTE_SERVER = false;
+*/
 
 // AWS TEST SERVER
 /*
@@ -39,7 +41,11 @@ export var REMOTE_SERVER = true;
 export const SKIP_SECURESTORAGE = false;
 export const ENCRYPT_DATA = false; // Says whether or not PouchDB/CouchDB data gets encrypted
 
-export const APP_NAME = 'VanillaApp'; // This is the name of the local storage (amongst other things)
+export const APP_NAME = 'VanillaApp';
+export const PRODUCT_DB_NAME = 'product';
+export const DO_LOGIN = false;
+export const FB_LINK = 'fb://profile/430788326941674';
+export const TW_LINK = 'https://twitter.com/Edgbaston_High';
 
 export const PRODUCT_CATEGORY1_SUBCATEGORIES = [];
 export const PRODUCT_CATEGORY2_SUBCATEGORIES = [];

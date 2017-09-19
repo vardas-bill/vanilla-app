@@ -1,13 +1,9 @@
-import { Authentication } from './authentication';
-import { Data } from './data';
-import { Media } from './media';
-import { Api } from './api';
-import { Items } from '../mocks/providers/items';
+import { AuthenticationProvider } from './authentication';
+import { DataProvider } from './data';
+import { MediaProvider } from './media';
 
 export {
-  Authentication,
-  Data,
-  Media,
-  Api,
-  Items
+  AuthenticationProvider,
+  DataProvider,
+  MediaProvider
 };

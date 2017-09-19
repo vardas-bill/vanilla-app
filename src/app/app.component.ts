@@ -1,29 +1,30 @@
 import { Component, ViewChild } from '@angular/core';
 import { Platform, Nav, Config, AlertController, Events } from 'ionic-angular';
-import { Splashscreen, SecureStorage } from 'ionic-native';
+
+import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AppVersion } from '@ionic-native/app-version';
+import { NativeStorage } from '@ionic-native/native-storage';
 
 import { HomePage } from '../pages/home/home';
 import { CardsPage } from '../pages/cards/cards';
-import { ContentPage } from '../pages/content/content';
 import { LoginPage } from '../pages/login/login';
 import { MapPage } from '../pages/map/map';
 import { SignupPage } from '../pages/signup/signup';
 import { TutorialPage } from '../pages/tutorial/tutorial';
+import { TabsPage } from '../pages/tabs/tabs';
 import { WelcomePage } from '../pages/welcome/welcome';
 import { ListMasterPage } from '../pages/list-master/list-master';
 import { SearchPage } from '../pages/search/search';
 import { SwipePage } from '../pages/swipe/swipe';
 
-import { Data } from '../providers/data';
-import { LocalStorage } from '../providers/local-storage';
-import { Authentication } from '../providers/authentication';
+import { DataProvider } from '../providers/data';
+import { AuthenticationProvider } from '../providers/authentication';
 import { ConnectivityService } from '../providers/connectivity-service';
 
 import { OneSignal } from '@ionic-native/onesignal';
 
-import { APP_NAME, SKIP_SECURESTORAGE, ENCRYPT_DATA } from '../app/app.settings';
+import { APP_NAME, SKIP_SECURESTORAGE, ENCRYPT_DATA, DO_LOGIN } from '../app/app.settings';
 
 
 import { TranslateService } from 'ng2-translate/ng2-translate';
@@ -32,7 +33,7 @@ import { TranslateService } from 'ng2-translate/ng2-translate';
   templateUrl: 'app.html'
 })
 export class VanillaApp {
-
+  rootPage:any = TabsPage;
   //rootPage = WelcomePage;
 
   @ViewChild(Nav) nav: Nav;
@@ -40,7 +41,6 @@ export class VanillaApp {
   pages: any[] = [
     //{ title: 'Tutorial', icon: 'add-circle', component: TutorialPage },
     { title: 'HOME', icon: 'add-circle', component: HomePage },
-    { title: 'ABOUT US', icon: 'add-circle', component: ContentPage },
     { title: 'CARDS', icon: 'add-circle', component: CardsPage },
     /*
     { title: 'Login', icon: 'add-circle', component: LoginPage },
@@ -57,9 +57,10 @@ export class VanillaApp {
   constructor(public translate: TranslateService,
               public platform: Platform,
               public statusBar: StatusBar,
-              public dataService: Data,
-              public authentication: Authentication,
-              public localStorage: LocalStorage,
+              public splashScreen: SplashScreen,
+              public dataProvider: DataProvider,
+              public authenticationProvider: AuthenticationProvider,
+              public nativeStorage: NativeStorage,
               public connectivityService: ConnectivityService,
               public alertCtrl: AlertController,
               public config: Config,
@@ -108,7 +109,7 @@ export class VanillaApp {
 
       //this.statusBar.overlaysWebView(false); // let status bar overlay webview
       //this.statusBar.backgroundColorByHexString('#fa1cff');
-      Splashscreen.hide();
+      this.splashScreen.hide();
 
       // Are we running on a device or in the browser?
       if (this.platform.is('cordova'))
@@ -144,7 +145,12 @@ export class VanillaApp {
         console.log('VanillaApp: NOT running on Cordova device');
       }
 
-      this.nav.setRoot(WelcomePage);
+      if (DO_LOGIN) this.nav.setRoot(WelcomePage);
+      else {
+        // If we aren't making users login we need to initialise the dataProvider here (rather than within the login code)
+        this.dataProvider.init();
+        //this.nav.setRoot(HomePage);
+      }
     });
   }
 
@@ -174,13 +180,14 @@ export class VanillaApp {
 
   logout()
   {
-    this.authentication.logout();
+    this.authenticationProvider.logout();
     this.nav.setRoot(WelcomePage);
   }
 
 
 
-  openPage(page) {
-    this.nav.setRoot(page.component, {'keyword': 'ALL'});
+  openPage(page)
+  {
+    //this.nav.setRoot(page.component, {'keyword': 'ALL'});
   }
 }

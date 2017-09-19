@@ -11,7 +11,7 @@ import { Camera, MediaCapture, MediaFile, CaptureError, CaptureImageOptions, Cap
 declare var cordova: any;
 
 @Injectable()
-export class Media {
+export class MediaProvider {
 
   constructor(public http: Http)
   {

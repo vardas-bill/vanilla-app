@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-navbar>
+    <ion-buttons left>
+      <button ion-button class="navbar_left_button">
+        <img src="assets/img/ehs-shield.jpg"  class="toolbar-shield">
+      </button>
+    </ion-buttons>
+    <ion-title>Contact</ion-title>
+    <ion-buttons end>
+      <button ion-button class="navbar_right_button" (click)="ehsTwitter()">
+        <ion-icon name="logo-twitter"></ion-icon>
+      </button>
+      <button ion-button class="navbar_right_button" (click)="ehsFacebook()">
+        <img src="assets/img/fb-icon.png" class="navbar-fb-icon">
+      </button>
+      <button ion-button class="navbar_right_button" (click)="gotoSettingsPage()">
+        <ion-icon name="md-settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="heading">
+    Edgbaston High School for Girls
+  </div>
+  <div class="address-box">
+    <div class="address">
+      Westbourne Road <br />
+      Edgbaston <br />
+      Birmingham <br />
+      B15 3TS <br />
+    </div>
+    <div class="phonenumbers">
+      <div (click)="dialNumber('0121 454 5831')"> Tel: 0121 454 5831 </div>
+      Fax: 0121 454 2363 <br />
+      Email: <a href="mailto:enquiries@edgbastonhigh.co.uk" class="mailto"> enquiries@edgbastonhigh.co.uk </a> <br />
+      (School Office)
+    </div>
+  </div>
+
+  <div class="contacts-heading">
+    Useful contacts:
+  </div>
+
+  <div class="contacts-box">
+    <div class="contact-first-item">
+      <div class="sub-heading">
+        Headmistress:
+      </div>
+      <div class="text">
+        <a href="mailto:head@edgbastonhigh.co.uk" class="mailto"> head@edgbastonhigh.co.uk </a>
+      </div>
+    </div>
+
+    <div class="contact-item">
+      <div class="sub-heading">
+        Preparatory School current parent enquiries:
+      </div>
+      <div class="text">
+        <div (click)="dialNumber('0121 454 2401')"> 0121 454 2401 </div>
+        <a href="mailto:prep@edgbastonhigh.co.uk" class="mailto"> prep@edgbastonhigh.co.uk </a>
+      </div>
+    </div>
+
+    <div class="contact-last-item">
+      <div class="sub-heading">
+        Senior School current parent enquiries:
+      </div>
+      <div class="text">
+        <div (click)="dialNumber('0121 454 5831')"> 0121 454 5831 </div>
+        <a href="mailto:enquiries@edgbastonhigh.co.uk" class="mailto"> enquiries@edgbastonhigh.co.uk </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-version">
+    V{{appVersionNumber}}
+  </div>
+
+</ion-content>

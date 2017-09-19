@@ -5,8 +5,7 @@ import { ItemDetailPage } from '../item-detail/item-detail';
 import { ItemCreatePage } from '../item-create/item-create';
 import { ItemEditPage } from '../item-edit/item-edit';
 
-import { Items } from '../../providers/providers';
-import { Data } from '../../providers/providers';
+import { DataProvider } from '../../providers/providers';
 import { Item } from '../../models/item';
 
 import * as moment from 'moment';
@@ -26,12 +25,11 @@ export class ListMasterPage {
   constructor(public navCtrl: NavController,
               public alertCtrl: AlertController,
               public toastCtrl: ToastController,
-              public items: Items,
-              public dataService: Data,
+              public dataProvider: DataProvider,
               public modalCtrl: ModalController) {
 
     // Get all of the DUMMMY items to be shown
-    this.currentItems = this.items.query();
+    //this.currentItems = this.items.query();
 
     // Show the items from the Vanilla App database
     this.displayDataItems();
@@ -49,7 +47,7 @@ export class ListMasterPage {
   displayDataItems()
   // Shows all of the items
   {
-    this.dataService.getItems().then((data) => {
+    this.dataProvider.getItems().then((data) => {
       console.log('ListMasterPage: displayDataItems: dataService.getItems() returned: ' + JSON.stringify(data));
 
       let numItems = Object.keys(data).length;
@@ -88,7 +86,7 @@ export class ListMasterPage {
     console.log('ListMasterPage: displayMedia(): Called with itemIndex = ' + itemIndex + ', ' + annotationID);
 
     // Get every step so it can be shown
-    this.dataService.getAnnotation(annotationID).then((annotation)=>
+    this.dataProvider.getAnnotation(annotationID).then((annotation)=>
     {
       if (annotation) {
         this.itemImage[itemIndex] = annotation[0];
@@ -146,8 +144,8 @@ export class ListMasterPage {
         {
           text: 'Yes',
           handler: () => {
-            this.dataService.getItem(itemID).then((item)=>{
-              if (item) this.dataService.removeItem(item._id,item._rev).then((result)=>{
+            this.dataProvider.getItem(itemID).then((item)=>{
+              if (item) this.dataProvider.removeItem(item._id,item._rev).then((result)=>{
                 this.displayDataItems();
               });
             })

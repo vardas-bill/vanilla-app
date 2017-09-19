@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
-import { Data } from '../../providers/providers';
+import { DataProvider } from '../../providers/providers';
 
 import { APP_NAME } from '../../app/app.settings';
 
@@ -30,7 +30,7 @@ export class CardsPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
-              public dataService: Data) {
+              public dataProvider: DataProvider) {
 
     this.keyword = this.navParams.get('keyword');
     this.name = this.navParams.get('name');
@@ -44,7 +44,7 @@ export class CardsPage {
   displayDataItems()
   // Shows all of the items
   {
-    this.dataService.getItems().then((data) => {
+    this.dataProvider.getItems().then((data) => {
       console.log('ListMasterPage: displayDataItems: dataService.getItems() returned: ' + JSON.stringify(data));
 
       let numItems = Object.keys(data).length;
@@ -97,7 +97,7 @@ export class CardsPage {
     console.log('ListMasterPage: displayMedia(): Called with itemIndex = ' + itemIndex + ', ' + annotationID);
 
     // Get every step so it can be shown
-    this.dataService.getAnnotation(annotationID).then((annotation)=>
+    this.dataProvider.getAnnotation(annotationID).then((annotation)=>
     {
       if (annotation) {
         this.itemImage[itemIndex] = annotation[0];
@@ -115,7 +115,7 @@ export class CardsPage {
     console.log('ListMasterPage: displayComments(): Called with itemIndex = ' + itemIndex + ', and itemID = ' + itemID);
 
     // Get every comment so it can be shown
-    this.dataService.getComments(itemID).then((comments)=>{
+    this.dataProvider.getComments(itemID).then((comments)=>{
       if (comments) {
         console.log('CardsPage: displayComments(): number of comments found is = ' + comments.length);
         this.itemCommentsCount[itemIndex] = comments.length;

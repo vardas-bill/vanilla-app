@@ -3,11 +3,11 @@ import { NavController, ToastController, Events } from 'ionic-angular';
 import { SecureStorage } from 'ionic-native';
 import { TranslateService } from 'ng2-translate/ng2-translate';
 
-import { MainPage } from '../../pages/pages';
 import { SignupPage } from '../../pages/signup/signup';
-import { Authentication } from '../../providers/authentication';
+
+import { AuthenticationProvider } from '../../providers/authentication';
 import { ConnectivityService } from '../../providers/connectivity-service';
-import { ListMasterPage } from "../list-master/list-master";
+
 import { HomePage } from '../home/home';
 
 import { APP_NAME, SKIP_SECURESTORAGE, ENCRYPT_DATA } from '../../app/app.settings';
@@ -37,7 +37,7 @@ export class LoginPage {
   labelColor: string = "white";
 
   constructor(public navCtrl: NavController,
-              public authentication: Authentication,
+              public authenticationProvider: AuthenticationProvider,
               public connectivityService: ConnectivityService,
               public toastCtrl: ToastController,
               public translateService: TranslateService,
@@ -68,7 +68,7 @@ export class LoginPage {
       this.showLoadingSpinner = true;
 
       // Log the user in
-      this.authentication.login(this.account.email, this.account.password)
+      this.authenticationProvider.login(this.account.email, this.account.password)
         .then((result:any)=>{
           console.log('LoginPage: doLogin(): authentication.login returned: ' + JSON.stringify(result));
 
